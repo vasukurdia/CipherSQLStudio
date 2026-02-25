@@ -1,0 +1,59 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.navbar {
+  background-color: $color-bg-secondary;
+  border-bottom: 1px solid $color-border;
+  position: sticky;
+  top: 0;
+  z-index: $z-overlay;
+
+  &__inner {
+    @include flex(row, space-between, center);
+    padding: $space-3 $space-4;
+
+    @include respond-to('tablet') {
+      padding: $space-3 $space-6;
+    }
+  }
+
+  &__brand {
+    @include flex(row, flex-start, center);
+    gap: $space-2;
+    text-decoration: none;
+    &:hover { text-decoration: none; }
+  }
+
+  &__logo {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-accent;
+    font-family: $font-mono;
+  }
+
+  &__logo-text {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    display: none;
+
+    @include respond-to('tablet') {
+      display: block;
+    }
+  }
+
+  &__actions {
+    @include flex(row, flex-end, center);
+    gap: $space-2;
+  }
+
+  &__user {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    display: none;
+
+    @include respond-to('tablet') {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,107 @@
+// ============================================
+// SCSS MIXINS
+// ============================================
+
+@use 'variables' as *;
+
+// Responsive breakpoints (mobile-first)
+@mixin respond-to($bp) {
+  @if $bp == 'tablet' {
+    @media (min-width: $bp-tablet) { @content; }
+  } @else if $bp == 'desktop' {
+    @media (min-width: $bp-desktop) { @content; }
+  } @else if $bp == 'wide' {
+    @media (min-width: $bp-wide) { @content; }
+  }
+}
+
+// Flex helpers
+@mixin flex($direction: row, $justify: flex-start, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Truncate text
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Card style
+@mixin card {
+  background-color: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-4;
+}
+
+// Button base
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-2 $space-4;
+  border: none;
+  border-radius: $radius-md;
+  font-family: $font-sans;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all $transition-fast;
+  text-decoration: none;
+  min-height: 40px; // touch-friendly
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Badge
+@mixin badge($bg, $color: white) {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-1 $space-2;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  background-color: $bg;
+  color: $color;
+  letter-spacing: 0.03em;
+}
+
+// Scrollbar styling
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $color-bg-secondary;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $color-border-light;
+    border-radius: $radius-full;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: $color-accent;
+  }
+}
+
+// Focus outline for accessibility
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 2px;
+  }
+}

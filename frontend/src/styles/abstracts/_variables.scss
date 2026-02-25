@@ -1,0 +1,86 @@
+// ============================================
+// SCSS VARIABLES
+// ============================================
+
+// Colors
+$color-bg-primary: #0f172a;
+$color-bg-secondary: #1e293b;
+$color-bg-card: #1e293b;
+$color-bg-surface: #273449;
+$color-border: #334155;
+$color-border-light: #475569;
+
+$color-accent: #6366f1;
+$color-accent-hover: #4f46e5;
+$color-accent-light: rgba(99, 102, 241, 0.15);
+
+$color-success: #10b981;
+$color-success-light: rgba(16, 185, 129, 0.15);
+$color-error: #ef4444;
+$color-error-light: rgba(239, 68, 68, 0.15);
+$color-warning: #f59e0b;
+$color-warning-light: rgba(245, 158, 11, 0.15);
+
+$color-text-primary: #f1f5f9;
+$color-text-secondary: #94a3b8;
+$color-text-muted: #64748b;
+
+$color-beginner: #10b981;
+$color-intermediate: #f59e0b;
+$color-advanced: #ef4444;
+
+// Typography
+$font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+$font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Spacing
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.25rem;
+$space-6: 1.5rem;
+$space-8: 2rem;
+$space-10: 2.5rem;
+$space-12: 3rem;
+$space-16: 4rem;
+
+// Border radius
+$radius-sm: 0.25rem;
+$radius-md: 0.5rem;
+$radius-lg: 0.75rem;
+$radius-xl: 1rem;
+$radius-full: 9999px;
+
+// Shadows
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+
+// Transitions
+$transition-fast: 0.15s ease;
+$transition-base: 0.25s ease;
+
+// Breakpoints
+$bp-mobile: 320px;
+$bp-tablet: 641px;
+$bp-desktop: 1024px;
+$bp-wide: 1281px;
+
+// Z-index
+$z-overlay: 100;
+$z-modal: 200;
+$z-tooltip: 300;

@@ -1,0 +1,60 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.assignment-card {
+  @include card;
+  cursor: pointer;
+  transition: all $transition-base;
+  animation: fadeIn 0.3s ease forwards;
+
+  &:hover {
+    border-color: $color-accent;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &__header {
+    @include flex(row, space-between, flex-start);
+    gap: $space-3;
+    margin-bottom: $space-3;
+  }
+
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    flex: 1;
+
+    @include respond-to('tablet') {
+      font-size: $font-size-lg;
+    }
+  }
+
+  &__description {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: 1.5;
+    margin-bottom: $space-3;
+  }
+
+  &__footer {
+    @include flex(row, space-between, center);
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+
+  &__tags {
+    @include flex(row, flex-start, center);
+    flex-wrap: wrap;
+    gap: $space-1;
+  }
+
+  &__tag {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    background-color: $color-bg-surface;
+    padding: 2px $space-2;
+    border-radius: $radius-full;
+    border: 1px solid $color-border;
+  }
+}
