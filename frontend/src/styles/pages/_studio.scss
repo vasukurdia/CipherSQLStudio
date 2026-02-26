@@ -7,7 +7,6 @@
   height: calc(100vh - 57px);
   overflow: hidden;
 
-  // Mobile: stack vertically with scroll
   @media (max-width: #{$bp-desktop - 1}) {
     height: auto;
     overflow: auto;
@@ -237,9 +236,11 @@
   &__editor-wrap {
     flex: 1;
     min-height: 250px;
+    height: 250px;
 
     @include respond-to('desktop') {
       min-height: 300px;
+      height: 300px;
     }
   }
 
@@ -351,8 +352,9 @@
     border: 1px solid rgba($color-warning, 0.3);
     border-radius: $radius-md;
     padding: $space-4;
-    margin: $space-4;
+    margin: 0 $space-4 $space-4 $space-4;
     animation: fadeIn 0.3s ease;
+    flex-shrink: 0;
 
     &-header {
       @include flex(row, space-between, center);
@@ -412,6 +414,82 @@
     &:hover:not(.studio__tab--active) {
       color: $color-text-primary;
     }
+  }
+
+  // ----------------------------------------------------------
+  // --------------------- ATTEMPTS STYLES --------------------
+  // ----------------------------------------------------------
+
+  &__attempts-login,
+  &__attempts-empty {
+    @include flex-center;
+    flex-direction: column;
+    gap: $space-3;
+    padding: $space-8 $space-4;
+    text-align: center;
+    color: $color-text-muted;
+    font-size: $font-size-sm;
+
+    span { font-size: 2rem; }
+  }
+
+  &__attempts-list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+
+  &__attempt-item {
+    background-color: $color-bg-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    padding: $space-3;
+    transition: border-color $transition-fast;
+
+    &:hover {
+      border-color: $color-accent;
+    }
+  }
+
+  &__attempt-header {
+    @include flex(row, space-between, center);
+    margin-bottom: $space-2;
+    gap: $space-2;
+  }
+
+  &__attempt-number {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $color-accent;
+    font-family: $font-mono;
+  }
+
+  &__attempt-time {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    flex: 1;
+  }
+
+  &__attempt-load {
+    font-size: $font-size-xs;
+    padding: 2px $space-2;
+    min-height: auto;
+  }
+
+  &__attempt-query {
+    font-family: $font-mono;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background-color: $color-bg-primary;
+    padding: $space-2 $space-3;
+    border-radius: $radius-sm;
+    border-left: 2px solid $color-accent;
+    margin: 0;
+    max-height: 100px;
+    overflow-y: auto;
+    @include custom-scrollbar;
   }
 }
 
