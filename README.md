@@ -2,87 +2,149 @@
 
 A browser-based SQL learning platform where students can practice SQL queries against pre-configured assignments with real-time execution and intelligent hints.
 
-## 📸 Features
+---
+
+## Features
 
 - **Assignment Listing** — Browse assignments by difficulty (Beginner / Intermediate / Advanced)
-- **SQL Studio** — Monaco Editor with syntax highlighting, auto-complete, and Ctrl+Enter to run
-- **Real-time Execution** — Queries run against a PostgreSQL sandbox with results in a formatted table
+- **SQL Studio** — Monaco Editor with syntax highlighting, auto-complete, Ctrl+Enter to run
+- **Real-time Execution** — Queries run against PostgreSQL sandbox, results in formatted table
 - **Schema & Sample Data Viewer** — See table schemas and preview data before writing queries
-- **LLM Hints** — Get contextual hints (not solutions) powered by OpenAI / Gemini
+- **LLM Hints** — Contextual hints (not solutions) powered by Google Gemini
+- **My Attempts** — Save and reload previous SQL queries per assignment (login required)
 - **Auth System** — Register/login to save query attempt history
-- **Mobile Responsive** — Works on 320px → desktop, mobile-first SCSS
+- **Mobile Responsive** — Works on 320px to desktop, mobile-first SCSS
 
 ---
 
-## 🏗 Tech Stack
+## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React.js, SCSS (vanilla), Monaco Editor |
-| Backend | Node.js, Express.js |
-| Sandbox DB | PostgreSQL |
-| Persistence DB | MongoDB (Atlas) |
-| LLM | Google Gemini (`gemini-2.0-flash`) |
+| Layer | Technology | Why |
+|-------|-----------|-----|
+| Frontend | React.js | Component-based UI, perfect for multi-panel studio layout |
+| Styling | Vanilla SCSS | Variables, mixins, nesting, BEM naming, mobile-first breakpoints |
+| Code Editor | Monaco Editor | VSCode editor in-browser with SQL syntax highlighting |
+| Backend | Node.js + Express.js | Minimal, fast, great middleware ecosystem |
+| Sandbox DB | PostgreSQL | ACID-compliant, excellent SQL standard support for learning |
+| Persistence DB | MongoDB Atlas | Flexible schema for assignments and user attempt history |
+| LLM | Google Gemini (gemini-2.0-flash) | Fast, free tier available, great for hint generation |
+| Auth | JWT | Stateless auth, no session storage needed |
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ciphersqlstudio/
+├── README.md
+├── .gitignore
 ├── backend/
-│   ├── src/
-│   │   ├── config/          # DB connections (MongoDB, PostgreSQL)
-│   │   ├── controllers/     # Business logic
-│   │   ├── middleware/      # Auth middleware
-│   │   ├── models/          # Mongoose schemas
-│   │   ├── routes/          # Express routes
-│   │   ├── utils/           # SQL validator
-│   │   └── index.js         # Entry point
+│   ├── package.json
 │   ├── .env.example
-│   └── package.json
-│
+│   └── src/
+│       ├── index.js                    Express app entry point
+│       ├── config/
+│       │   ├── mongodb.js              Mongoose connection
+│       │   └── postgres.js             pg Pool + sandbox tables + seed data
+│       ├── models/
+│       │   ├── User.js                 Auth + attempts history schema
+│       │   └── Assignment.js           Assignment metadata + table schemas
+│       ├── controllers/
+│       │   ├── authController.js       register / login / getMe
+│       │   ├── assignmentController.js list, get by ID, seed 6 assignments
+│       │   ├── queryController.js      execute SQL, save attempts to MongoDB
+│       │   └── hintController.js       Google Gemini (@google/genai) hints
+│       ├── routes/
+│       │   ├── auth.js
+│       │   ├── assignments.js
+│       │   ├── query.js
+│       │   └── hints.js
+│       ├── middleware/
+│       │   └── auth.js                 protect + optionalAuth JWT middleware
+│       └── utils/
+│           └── sqlValidator.js         SELECT-only, strips comments, blocks keywords
 └── frontend/
-    ├── public/
-    ├── src/
-    │   ├── components/      # Reusable UI components
-    │   ├── hooks/           # useAuth context
-    │   ├── pages/           # AssignmentsPage, StudioPage, Auth pages
-    │   ├── services/        # Axios API layer
-    │   ├── styles/
-    │   │   ├── abstracts/   # _variables.scss, _mixins.scss
-    │   │   ├── components/  # Component SCSS
-    │   │   ├── pages/       # Page SCSS
-    │   │   └── main.scss    # Global styles + utilities
-    │   ├── App.jsx
-    │   └── index.js
+    ├── package.json
     ├── .env.example
-    └── package.json
+    ├── public/index.html
+    └── src/
+        ├── index.js
+        ├── App.jsx                     Routes setup
+        ├── services/api.js             All axios calls centralized
+        ├── hooks/useAuth.jsx           Auth context
+        ├── components/
+        │   ├── Navbar.jsx
+        │   ├── AssignmentCard.jsx
+        │   └── ResultsTable.jsx
+        ├── pages/
+        │   ├── AssignmentsPage.jsx     Grid with difficulty filters
+        │   ├── StudioPage.jsx          Editor + results + hints + attempts
+        │   ├── LoginPage.jsx
+        │   └── RegisterPage.jsx
+        └── styles/
+            ├── main.scss               Global styles, buttons, animations
+            ├── abstracts/
+            │   ├── _variables.scss     Design tokens
+            │   └── _mixins.scss        Responsive mixins, flex helpers
+            ├── components/
+            │   ├── _navbar.scss
+            │   └── _assignment-card.scss
+            └── pages/
+                ├── _assignments.scss
+                └── _studio.scss        Studio layout + attempts UI
 ```
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 
 - Node.js v18+
-- PostgreSQL (local or hosted)
+- PostgreSQL installed locally
 - MongoDB Atlas account (free tier works)
-- OpenAI or Gemini API key (optional - fallback hints work without)
+- Google Gemini API key
 
 ---
 
-### 1. Clone the Repository
+### Step 1 — Clone
 
 ```bash
 git clone https://github.com/your-username/ciphersqlstudio.git
 cd ciphersqlstudio
 ```
 
----
+### Step 2 — PostgreSQL Setup
 
-### 2. Backend Setup
+```bash
+# Linux
+sudo service postgresql start
+sudo -u postgres psql
+
+# macOS
+brew services start postgresql
+psql postgres
+
+# Inside psql
+CREATE DATABASE ciphersqlstudio_sandbox;
+\q
+```
+
+### Step 3 — MongoDB Atlas Setup
+
+1. Go to cloud.mongodb.com → free account
+2. Create free M0 cluster
+3. Set username and password
+4. Network Access → Add IP → 0.0.0.0/0
+5. Connect → Drivers → copy connection string
+
+### Step 4 — Get Gemini API Key
+
+1. Go to aistudio.google.com
+2. Click Get API Key → Create API key
+3. Copy the key
+
+### Step 5 — Backend Setup
 
 ```bash
 cd backend
@@ -90,164 +152,116 @@ npm install
 cp .env.example .env
 ```
 
-Edit `.env` with your values:
+Edit `.env`:
 
 ```env
 PORT=5000
-MONGODB_URI=mongodb+srv://...
+NODE_ENV=development
+MONGODB_URI=mongodb+srv://user:pass@cluster0.xxxxx.mongodb.net/ciphersqlstudio?retryWrites=true&w=majority
 PG_HOST=localhost
 PG_PORT=5432
 PG_DATABASE=ciphersqlstudio_sandbox
 PG_USER=postgres
 PG_PASSWORD=yourpassword
-JWT_SECRET=your_secret_key
-OPENAI_API_KEY=sk-...       # Optional but recommended
+JWT_SECRET=some_long_random_secret_string
+GEMINI_API_KEY=AIzaSy...your_key
 CLIENT_URL=http://localhost:3000
 ```
 
-#### PostgreSQL Setup
-
 ```bash
-psql -U postgres
-CREATE DATABASE ciphersqlstudio_sandbox;
-\q
+npm run dev
 ```
 
-The backend will auto-create tables and seed sample data on first run.
-
-#### Start backend:
-
-```bash
-npm run dev   # development (with nodemon)
-# OR
-npm start     # production
+Expected output:
+```
+✅ MongoDB connected
+✅ PostgreSQL connected
+✅ PostgreSQL sandbox seeded
+🚀 CipherSQLStudio API running on http://localhost:5000
 ```
 
----
-
-### 3. Frontend Setup
+### Step 6 — Frontend Setup
 
 ```bash
-cd ../frontend
+cd frontend
 npm install
 cp .env.example .env
-```
-
-Edit `.env`:
-
-```env
-REACT_APP_API_URL=http://localhost:5000/api
-```
-
-#### Start frontend:
-
-```bash
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open http://localhost:3000
 
 ---
 
-## 🔑 Environment Variables
+## Environment Variables
 
 ### Backend
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `PORT` | Backend port | No (default 5000) |
-| `MONGODB_URI` | MongoDB connection string | Yes |
-| `PG_HOST` | PostgreSQL host | Yes |
-| `PG_PORT` | PostgreSQL port | No (default 5432) |
-| `PG_DATABASE` | PostgreSQL database name | Yes |
-| `PG_USER` | PostgreSQL user | Yes |
-| `PG_PASSWORD` | PostgreSQL password | Yes |
-| `JWT_SECRET` | Secret for JWT signing | Yes |
-| `JWT_EXPIRES_IN` | JWT expiry | No (default 7d) |
-| `GEMINI_API_KEY` | Google Gemini API key for hints | Yes* |
+| PORT | Server port | No (default 5000) |
+| MONGODB_URI | MongoDB Atlas connection string | Yes |
+| PG_HOST | PostgreSQL host | Yes |
+| PG_PORT | PostgreSQL port | No (default 5432) |
+| PG_DATABASE | PostgreSQL database name | Yes |
+| PG_USER | PostgreSQL username | Yes |
+| PG_PASSWORD | PostgreSQL password | Yes |
+| JWT_SECRET | Secret for JWT signing | Yes |
+| GEMINI_API_KEY | Google Gemini API key | Yes* |
+| CLIENT_URL | Frontend URL for CORS | No (default localhost:3000) |
 
-*Without a Gemini key, the app uses rule-based fallback hints.
+*Without Gemini key, rule-based fallback hints are used.
 
 ### Frontend
 
 | Variable | Description |
 |----------|-------------|
-| `REACT_APP_API_URL` | Backend API base URL |
+| REACT_APP_API_URL | Backend API base URL |
 
 ---
 
-## 🔒 Security Features
+## Security
 
-- **SQL Validation**: Only `SELECT` and `WITH...SELECT` queries allowed
-- **Forbidden Keywords**: DROP, DELETE, INSERT, UPDATE, ALTER, etc. blocked
-- **Statement Timeout**: 5-second PostgreSQL timeout prevents long-running queries
-- **Multi-statement Prevention**: Only one SQL statement per execution
-- **Rate Limiting**: API limited to 100 req/15min; query execution limited to 20 req/min
-- **JWT Authentication**: Stateless auth for protected routes
-
----
-
-## 📊 Data-Flow Diagram
-
-See `data-flow-diagram.jpg` in the repository root (hand-drawn as required).
-
-**Flow: User clicks "Run Query"**
-
-```
-User types query in Monaco Editor
-    ↓
-Click "Run Query" / Ctrl+Enter
-    ↓
-React state update: setQueryLoading(true)
-    ↓
-axios POST /api/query/execute { query, assignmentId }
-    ↓
-Express rate limiter middleware
-    ↓
-optionalAuth middleware (attach user if token present)
-    ↓
-queryController.executeQuery()
-    ↓
-validateQuery() — check for forbidden keywords, SELECT-only
-    ↓
-sanitizeQuery() — strip trailing semicolons
-    ↓
-pg pool.connect() → SET statement_timeout = 5000
-    ↓
-pool.query(cleanQuery)
-    ↓ (if success)
-Return { columns, rows, rowCount, duration }
-    ↓
-If user logged in → save attempt to MongoDB User.attempts
-    ↓
-Response 200 JSON → React sets result state
-    ↓ (if error)
-PostgreSQL error → Response 422 { error, detail, hint }
-    ↓
-React renders ResultsTable with data or error
-    ↓
-setQueryLoading(false)
-```
+- SELECT-only queries enforced — sqlValidator strips comments first then validates
+- Forbidden keywords blocked — DROP, DELETE, INSERT, UPDATE, ALTER, TRUNCATE, etc.
+- Statement timeout — 5 second PostgreSQL limit
+- Multi-statement prevention — only one SQL per execution
+- Rate limiting — 100 req/15min global, 20 req/min for query execution
+- JWT authentication for protected routes
 
 ---
 
-## 🎨 Technology Choices
-
-- **React** — Component-based UI, perfect for the multi-panel studio layout
-- **Vanilla SCSS** — Required; used variables, mixins, nesting, BEM-style naming, and partials
-- **Monaco Editor** — VSCode's editor in-browser with SQL syntax highlighting
-- **PostgreSQL** — ACID-compliant, excellent SQL standard support for a learning sandbox
-- **MongoDB** — Flexible schema ideal for storing assignments with varying table schemas and user attempt history
-- **Express.js** — Minimal, fast, great middleware ecosystem
-- **JWT** — Stateless auth, no session storage needed
-
----
-
-## 📱 Responsive Breakpoints
+## Responsive Breakpoints
 
 | Breakpoint | Width | Layout |
 |------------|-------|--------|
 | Mobile | 320px | Stacked panels, tabbed navigation |
 | Tablet | 641px | Wider cards, better spacing |
 | Desktop | 1024px | Side-by-side studio layout |
-| Wide | 1281px | Wider left panel |
+| Wide | 1281px | Wider left panel (380px) |
+
+---
+
+## Pre-loaded Assignments
+
+6 assignments auto-seeded on first backend run:
+
+| Title | Difficulty | Key Concepts |
+|-------|-----------|-------------|
+| Basic Employee SELECT | Beginner | SELECT, WHERE, ORDER BY |
+| Aggregate Functions | Beginner | GROUP BY, AVG |
+| Product Revenue Analysis | Intermediate | HAVING, SUM, Arithmetic |
+| JOIN: Employees and Managers | Intermediate | Self-JOIN, LEFT JOIN |
+| Top Scoring Students per Subject | Advanced | Subquery, CTE, Window Functions |
+| Monthly Sales Report | Advanced | EXTRACT, DATE, CTE |
+
+---
+
+## My Attempts Feature
+
+When logged in, every query execution is saved automatically to MongoDB.
+
+In the Studio page:
+- Click the Attempts tab in the left panel
+- See all previous queries with timestamps
+- Click Load to reload any past query into the editor
