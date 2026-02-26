@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const tableSchemaSchema = new mongoose.Schema({
   tableName: { type: String, required: true },
@@ -17,7 +17,7 @@ const assignmentSchema = new mongoose.Schema(
     description: { type: String, required: true },
     difficulty: {
       type: String,
-      enum: ['beginner', 'intermediate', 'advanced'],
+      enum: ["beginner", "intermediate", "advanced"],
       required: true,
     },
     question: { type: String, required: true },
@@ -28,7 +28,7 @@ const assignmentSchema = new mongoose.Schema(
     isActive: { type: Boolean, default: true },
     order: { type: Number, default: 0 },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-module.exports = mongoose.model('Assignment', assignmentSchema);
+module.exports = mongoose.model("Assignment", assignmentSchema);

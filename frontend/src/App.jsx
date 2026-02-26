@@ -1,12 +1,12 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './hooks/useAuth';
-import Navbar from './components/Navbar';
-import AssignmentsPage from './pages/AssignmentsPage';
-import StudioPage from './pages/StudioPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import './styles/main.scss';
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./hooks/useAuth";
+import Navbar from "./components/Navbar";
+import AssignmentsPage from "./pages/AssignmentsPage";
+import StudioPage from "./pages/StudioPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import "./styles/main.scss";
 
 export default function App() {
   return (

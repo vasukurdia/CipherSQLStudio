@@ -18,20 +18,14 @@ async function connectPostgres() {
     client.release();
   } catch (err) {
     console.error('❌ PostgreSQL connection error:', err.message);
-    // Not fatal - allow app to start
   }
 }
 
-/**
- * Initialize the sandbox tables and seed data for demo assignments.
- * In production, admins would pre-populate this.
- */
+
 async function initPostgresTables() {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-
-    // Create sandbox tables for sample assignments
     await client.query(`
       CREATE TABLE IF NOT EXISTS employees (
         id SERIAL PRIMARY KEY,
@@ -84,7 +78,6 @@ async function initPostgresTables() {
       );
     `);
 
-    // Seed data only if tables empty
     const { rows } = await client.query('SELECT COUNT(*) FROM employees');
     if (parseInt(rows[0].count) === 0) {
       await client.query(`

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const attemptSchema = new mongoose.Schema({
   assignmentId: { type: String, required: true },
@@ -21,11 +21,11 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true, minlength: 6 },
     attempts: [attemptSchema],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 12);
   next();
 });
@@ -40,4 +40,4 @@ userSchema.methods.toJSON = function () {
   return obj;
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

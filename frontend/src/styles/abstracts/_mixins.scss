@@ -1,21 +1,25 @@
-// ============================================
-// SCSS MIXINS
-// ============================================
+@use "variables" as *;
 
-@use 'variables' as *;
-
-// Responsive breakpoints (mobile-first)
 @mixin respond-to($bp) {
-  @if $bp == 'tablet' {
-    @media (min-width: $bp-tablet) { @content; }
-  } @else if $bp == 'desktop' {
-    @media (min-width: $bp-desktop) { @content; }
-  } @else if $bp == 'wide' {
-    @media (min-width: $bp-wide) { @content; }
+  @if $bp =="tablet" {
+    @media (min-width: $bp-tablet) {
+      @content;
+    }
+  }
+
+  @else if $bp =="desktop" {
+    @media (min-width: $bp-desktop) {
+      @content;
+    }
+  }
+
+  @else if $bp =="wide" {
+    @media (min-width: $bp-wide) {
+      @content;
+    }
   }
 }
 
-// Flex helpers
 @mixin flex($direction: row, $justify: flex-start, $align: center) {
   display: flex;
   flex-direction: $direction;
@@ -29,14 +33,12 @@
   align-items: center;
 }
 
-// Truncate text
 @mixin truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-// Card style
 @mixin card {
   background-color: $color-bg-card;
   border: 1px solid $color-border;
@@ -44,7 +46,6 @@
   padding: $space-4;
 }
 
-// Button base
 @mixin button-base {
   display: inline-flex;
   align-items: center;
@@ -59,7 +60,7 @@
   cursor: pointer;
   transition: all $transition-fast;
   text-decoration: none;
-  min-height: 40px; // touch-friendly
+  min-height: 40px;
 
   &:disabled {
     opacity: 0.5;
@@ -67,7 +68,6 @@
   }
 }
 
-// Badge
 @mixin badge($bg, $color: white) {
   display: inline-flex;
   align-items: center;
@@ -80,25 +80,26 @@
   letter-spacing: 0.03em;
 }
 
-// Scrollbar styling
 @mixin custom-scrollbar {
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
+
   &::-webkit-scrollbar-track {
     background: $color-bg-secondary;
   }
+
   &::-webkit-scrollbar-thumb {
     background: $color-border-light;
     border-radius: $radius-full;
   }
+
   &::-webkit-scrollbar-thumb:hover {
     background: $color-accent;
   }
 }
 
-// Focus outline for accessibility
 @mixin focus-ring {
   &:focus-visible {
     outline: 2px solid $color-accent;

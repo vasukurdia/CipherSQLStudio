@@ -1,8 +1,3 @@
-// ============================================
-// SCSS VARIABLES
-// ============================================
-
-// Colors
 $color-bg-primary: #0f172a;
 $color-bg-secondary: #1e293b;
 $color-bg-card: #1e293b;
@@ -29,7 +24,6 @@ $color-beginner: #10b981;
 $color-intermediate: #f59e0b;
 $color-advanced: #ef4444;
 
-// Typography
 $font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 $font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
@@ -46,7 +40,6 @@ $font-weight-medium: 500;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
-// Spacing
 $space-1: 0.25rem;
 $space-2: 0.5rem;
 $space-3: 0.75rem;
@@ -58,29 +51,24 @@ $space-10: 2.5rem;
 $space-12: 3rem;
 $space-16: 4rem;
 
-// Border radius
 $radius-sm: 0.25rem;
 $radius-md: 0.5rem;
 $radius-lg: 0.75rem;
 $radius-xl: 1rem;
 $radius-full: 9999px;
 
-// Shadows
 $shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
 $shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
 $shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
 
-// Transitions
 $transition-fast: 0.15s ease;
 $transition-base: 0.25s ease;
 
-// Breakpoints
 $bp-mobile: 320px;
 $bp-tablet: 641px;
 $bp-desktop: 1024px;
 $bp-wide: 1281px;
 
-// Z-index
 $z-overlay: 100;
 $z-modal: 200;
 $z-tooltip: 300;

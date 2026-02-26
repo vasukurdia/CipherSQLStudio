@@ -1,11 +1,11 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/components/_assignment-card.scss';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/components/_assignment-card.scss";
 
 const DIFFICULTY_ICONS = {
-  beginner: '🟢',
-  intermediate: '🟡',
-  advanced: '🔴',
+  beginner: "🟢",
+  intermediate: "🟡",
+  advanced: "🔴",
 };
 
 export default function AssignmentCard({ assignment }) {
@@ -17,7 +17,9 @@ export default function AssignmentCard({ assignment }) {
       onClick={() => navigate(`/assignments/${assignment._id}`)}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && navigate(`/assignments/${assignment._id}`)}
+      onKeyDown={(e) =>
+        e.key === "Enter" && navigate(`/assignments/${assignment._id}`)
+      }
     >
       <div className="assignment-card__header">
         <h3 className="assignment-card__title">{assignment.title}</h3>
@@ -31,14 +33,18 @@ export default function AssignmentCard({ assignment }) {
       <div className="assignment-card__footer">
         <div className="assignment-card__tags">
           {(assignment.tags || []).slice(0, 3).map((tag) => (
-            <span key={tag} className="assignment-card__tag">{tag}</span>
+            <span key={tag} className="assignment-card__tag">
+              {tag}
+            </span>
           ))}
           {assignment.tags?.length > 3 && (
-            <span className="assignment-card__tag">+{assignment.tags.length - 3}</span>
+            <span className="assignment-card__tag">
+              +{assignment.tags.length - 3}
+            </span>
           )}
         </div>
-        <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
-          📋 {(assignment.relevantTables || []).join(', ')}
+        <span style={{ fontSize: "0.75rem", color: "#64748b" }}>
+          📋 {(assignment.relevantTables || []).join(", ")}
         </span>
       </div>
     </div>

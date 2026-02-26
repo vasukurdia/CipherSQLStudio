@@ -44,7 +44,6 @@ export default function StudioPage() {
       )
       .finally(() => setPageLoading(false));
 
-    // Attempts fetch karo agar user logged in hai
     if (user) {
       setAttemptsLoading(true);
       getUserAttempts(id)
@@ -65,7 +64,6 @@ export default function StudioPage() {
       const res = await executeQuery({ query, assignmentId: id });
       setResult(res.data);
 
-      // Attempts refresh karo
       if (user) {
         getUserAttempts(id)
           .then((res) => setAttempts(res.data.attempts))
@@ -106,7 +104,6 @@ export default function StudioPage() {
     setHint(null);
   };
 
-  // Keyboard shortcut: Ctrl+Enter to run
   const handleEditorKeyDown = (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
       handleRunQuery();
@@ -306,59 +303,75 @@ export default function StudioPage() {
             </div>
           )}
 
-          {/* ✅ NEW — Attempts Tab */}
-  {leftTab === 'attempts' && (
-    <div className="studio__panel">
-      <div className="studio__panel-body">
-
-        {!user ? (
-          <div className="studio__attempts-login">
-            <span>🔒</span>
-            <p>Please login to save query attempts.</p>
-            <a href="/login" className="btn btn--primary btn--sm">Login</a>
-          </div>
-        ) : attemptsLoading ? (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
-            <div className="spinner"></div>
-          </div>
-        ) : attempts.length === 0 ? (
-          <div className="studio__attempts-empty">
-            <span>📭</span>
-            <p>You haven’t run any query yet. Write a query above and click Run Query!</p>
-          </div>
-        ) : (
-          <div className="studio__attempts-list">
-            {attempts.map((attempt, i) => (
-              <div key={i} className="studio__attempt-item">
-                <div className="studio__attempt-header">
-                  <span className="studio__attempt-number">#{attempts.length - i}</span>
-                  <span className="studio__attempt-time">
-                    {new Date(attempt.executedAt).toLocaleString('en-IN', {
-                      day: '2-digit',
-                      month: 'short',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </span>
-                  <button
-                    className="studio__attempt-load btn btn--ghost btn--sm"
-                    onClick={() => {
-                      setQuery(attempt.query);
-                      setLeftTab('question');
+          {/* Attempts Tab */}
+          {leftTab === "attempts" && (
+            <div className="studio__panel">
+              <div className="studio__panel-body">
+                {!user ? (
+                  <div className="studio__attempts-login">
+                    <span>🔒</span>
+                    <p>Please login to save query attempts.</p>
+                    <a href="/login" className="btn btn--primary btn--sm">
+                      Login
+                    </a>
+                  </div>
+                ) : attemptsLoading ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      padding: "2rem",
                     }}
                   >
-                    Load
-                  </button>
-                </div>
-                <pre className="studio__attempt-query">{attempt.query}</pre>
+                    <div className="spinner"></div>
+                  </div>
+                ) : attempts.length === 0 ? (
+                  <div className="studio__attempts-empty">
+                    <span>📭</span>
+                    <p>
+                      You haven’t run any query yet. Write a query above and
+                      click Run Query!
+                    </p>
+                  </div>
+                ) : (
+                  <div className="studio__attempts-list">
+                    {attempts.map((attempt, i) => (
+                      <div key={i} className="studio__attempt-item">
+                        <div className="studio__attempt-header">
+                          <span className="studio__attempt-number">
+                            #{attempts.length - i}
+                          </span>
+                          <span className="studio__attempt-time">
+                            {new Date(attempt.executedAt).toLocaleString(
+                              "en-IN",
+                              {
+                                day: "2-digit",
+                                month: "short",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              },
+                            )}
+                          </span>
+                          <button
+                            className="studio__attempt-load btn btn--ghost btn--sm"
+                            onClick={() => {
+                              setQuery(attempt.query);
+                              setLeftTab("question");
+                            }}
+                          >
+                            Load
+                          </button>
+                        </div>
+                        <pre className="studio__attempt-query">
+                          {attempt.query}
+                        </pre>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
-        )}
-
-      </div>
-    </div>
-  )}
+            </div>
+          )}
 
           {/* Back button */}
           <div
@@ -416,14 +429,13 @@ export default function StudioPage() {
               onKeyDown={handleEditorKeyDown}
             >
               <Editor
-                height="250px" // "100%" ki jagah fixed height do
+                height="250px"
                 defaultLanguage="sql"
                 theme="vs-dark"
                 value={query}
                 onChange={(val) => setQuery(val || "")}
                 onMount={(editor) => {
                   editorRef.current = editor;
-                  // Mount hone ke baad layout force karo
                   setTimeout(() => editor.layout(), 100);
                 }}
                 options={{

@@ -23,7 +23,7 @@
     }
   }
 
-  // ---- LEFT PANEL ----
+
   &__left {
     width: 100%;
     display: flex;
@@ -44,7 +44,7 @@
     }
   }
 
-  // ---- RIGHT PANEL ----
+
   &__right {
     flex: 1;
     display: flex;
@@ -56,7 +56,7 @@
     }
   }
 
-  // ---- PANEL BASE ----
+
   &__panel {
     background-color: $color-bg-secondary;
     border-bottom: 1px solid $color-border;
@@ -83,7 +83,7 @@
     }
   }
 
-  // ---- QUESTION PANEL ----
+
   &__question {
     &-title {
       font-size: $font-size-lg;
@@ -122,12 +122,14 @@
     }
   }
 
-  // ---- SCHEMA VIEWER ----
+
   &__schema {
     &-table {
       margin-bottom: $space-4;
 
-      &:last-child { margin-bottom: 0; }
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     &-table-name {
@@ -167,7 +169,7 @@
     }
   }
 
-  // ---- SAMPLE DATA ----
+
   &__sample-data {
     &-table-wrap {
       overflow-x: auto;
@@ -202,8 +204,13 @@
         @include truncate;
       }
 
-      tr:last-child td { border-bottom: none; }
-      tr:hover td { background-color: $color-bg-surface; }
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      tr:hover td {
+        background-color: $color-bg-surface;
+      }
     }
 
     &-label {
@@ -215,7 +222,7 @@
     }
   }
 
-  // ---- EDITOR AREA ----
+
   &__editor-area {
     flex: 1;
     display: flex;
@@ -244,7 +251,7 @@
     }
   }
 
-  // ---- RESULTS AREA ----
+
   &__results {
     flex: 1;
     display: flex;
@@ -302,7 +309,9 @@
         white-space: nowrap;
       }
 
-      tr:hover td { background-color: $color-bg-surface; }
+      tr:hover td {
+        background-color: $color-bg-surface;
+      }
     }
 
     &-empty,
@@ -346,7 +355,7 @@
     }
   }
 
-  // ---- HINT PANEL ----
+
   &__hint {
     background-color: $color-warning-light;
     border: 1px solid rgba($color-warning, 0.3);
@@ -384,7 +393,7 @@
     }
   }
 
-  // ---- TABS ----
+
   &__tabs {
     @include flex(row, flex-start, center);
     border-bottom: 1px solid $color-border;
@@ -416,9 +425,6 @@
     }
   }
 
-  // ----------------------------------------------------------
-  // --------------------- ATTEMPTS STYLES --------------------
-  // ----------------------------------------------------------
 
   &__attempts-login,
   &__attempts-empty {
@@ -430,7 +436,9 @@
     color: $color-text-muted;
     font-size: $font-size-sm;
 
-    span { font-size: 2rem; }
+    span {
+      font-size: 2rem;
+    }
   }
 
   &__attempts-list {
@@ -493,7 +501,7 @@
   }
 }
 
-// ---- AUTH PAGES ----
+
 .auth-page {
   @include flex-center;
   min-height: 100vh;

@@ -21,7 +21,10 @@
     @include flex(row, flex-start, center);
     gap: $space-2;
     text-decoration: none;
-    &:hover { text-decoration: none; }
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   &__logo {

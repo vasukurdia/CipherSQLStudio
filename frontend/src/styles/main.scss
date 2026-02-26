@@ -1,9 +1,6 @@
 @use 'abstracts/variables' as *;
 @use 'abstracts/mixins' as *;
 
-// ============================================
-// GLOBAL RESET & BASE STYLES
-// ============================================
 
 *,
 *::before,
@@ -31,7 +28,10 @@ body {
 a {
   color: $color-accent;
   text-decoration: none;
-  &:hover { text-decoration: underline; }
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 img {
@@ -43,9 +43,6 @@ button {
   font-family: inherit;
 }
 
-// ============================================
-// UTILITY CLASSES
-// ============================================
 
 .container {
   width: 100%;
@@ -58,9 +55,6 @@ button {
   }
 }
 
-// ============================================
-// BUTTON COMPONENTS
-// ============================================
 
 .btn {
   @include button-base;
@@ -69,32 +63,49 @@ button {
   &--primary {
     background-color: $color-accent;
     color: white;
-    &:hover:not(:disabled) { background-color: $color-accent-hover; }
+
+    &:hover:not(:disabled) {
+      background-color: $color-accent-hover;
+    }
   }
 
   &--secondary {
     background-color: $color-bg-surface;
     color: $color-text-primary;
     border: 1px solid $color-border;
-    &:hover:not(:disabled) { border-color: $color-accent; color: $color-accent; }
+
+    &:hover:not(:disabled) {
+      border-color: $color-accent;
+      color: $color-accent;
+    }
   }
 
   &--success {
     background-color: $color-success;
     color: white;
-    &:hover:not(:disabled) { background-color: darken($color-success, 10%); }
+
+    &:hover:not(:disabled) {
+      background-color: darken($color-success, 10%);
+    }
   }
 
   &--danger {
     background-color: $color-error;
     color: white;
-    &:hover:not(:disabled) { background-color: darken($color-error, 10%); }
+
+    &:hover:not(:disabled) {
+      background-color: darken($color-error, 10%);
+    }
   }
 
   &--ghost {
     background-color: transparent;
     color: $color-text-secondary;
-    &:hover:not(:disabled) { background-color: $color-bg-surface; color: $color-text-primary; }
+
+    &:hover:not(:disabled) {
+      background-color: $color-bg-surface;
+      color: $color-text-primary;
+    }
   }
 
   &--sm {
@@ -109,11 +120,14 @@ button {
     min-height: 48px;
   }
 
-  &--full { width: 100%; }
+  &--full {
+    width: 100%;
+  }
 
   &--loading {
     position: relative;
     color: transparent;
+
     &::after {
       content: '';
       position: absolute;
@@ -127,22 +141,30 @@ button {
   }
 }
 
-// ============================================
-// BADGE
-// ============================================
 
 .badge {
   @include badge($color-bg-surface, $color-text-secondary);
   border: 1px solid $color-border;
 
-  &--beginner { background-color: $color-success-light; color: $color-success; border-color: $color-success; }
-  &--intermediate { background-color: $color-warning-light; color: $color-warning; border-color: $color-warning; }
-  &--advanced { background-color: $color-error-light; color: $color-error; border-color: $color-error; }
+  &--beginner {
+    background-color: $color-success-light;
+    color: $color-success;
+    border-color: $color-success;
+  }
+
+  &--intermediate {
+    background-color: $color-warning-light;
+    color: $color-warning;
+    border-color: $color-warning;
+  }
+
+  &--advanced {
+    background-color: $color-error-light;
+    color: $color-error;
+    border-color: $color-error;
+  }
 }
 
-// ============================================
-// FORM ELEMENTS
-// ============================================
 
 .form-group {
   display: flex;
@@ -174,12 +196,11 @@ button {
     box-shadow: 0 0 0 3px $color-accent-light;
   }
 
-  &::placeholder { color: $color-text-muted; }
+  &::placeholder {
+    color: $color-text-muted;
+  }
 }
 
-// ============================================
-// LOADING SPINNER
-// ============================================
 
 .spinner {
   display: inline-block;
@@ -203,22 +224,37 @@ button {
   }
 }
 
-// ============================================
-// ANIMATIONS
-// ============================================
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateX(-8px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.fade-in { animation: fadeIn 0.3s ease forwards; }
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}

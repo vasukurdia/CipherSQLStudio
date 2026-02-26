@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function ResultsTable({ result, error, loading }) {
   if (loading) {
@@ -14,7 +14,11 @@ export default function ResultsTable({ result, error, loading }) {
     return (
       <div className="studio__results-error">
         <strong>⚠ Query Error</strong>
-        <pre>{error.error || error}{error.detail ? `\nDetail: ${error.detail}` : ''}{error.hint ? `\nHint: ${error.hint}` : ''}</pre>
+        <pre>
+          {error.error || error}
+          {error.detail ? `\nDetail: ${error.detail}` : ""}
+          {error.hint ? `\nHint: ${error.hint}` : ""}
+        </pre>
       </div>
     );
   }
@@ -22,8 +26,11 @@ export default function ResultsTable({ result, error, loading }) {
   if (!result) {
     return (
       <div className="studio__results-empty">
-        <span style={{ fontSize: '2rem' }}>▶</span>
-        <span>Write a query above and click <strong>Run Query</strong> to see results here.</span>
+        <span style={{ fontSize: "2rem" }}>▶</span>
+        <span>
+          Write a query above and click <strong>Run Query</strong> to see
+          results here.
+        </span>
       </div>
     );
   }
@@ -31,7 +38,7 @@ export default function ResultsTable({ result, error, loading }) {
   if (result.rows.length === 0) {
     return (
       <div className="studio__results-empty">
-        <span style={{ fontSize: '2rem' }}>📭</span>
+        <span style={{ fontSize: "2rem" }}>📭</span>
         <span>Query executed successfully but returned 0 rows.</span>
       </div>
     );
@@ -51,7 +58,13 @@ export default function ResultsTable({ result, error, loading }) {
           {result.rows.map((row, i) => (
             <tr key={i}>
               {result.columns.map((col) => (
-                <td key={col}>{row[col] === null ? <em style={{ color: '#475569' }}>NULL</em> : String(row[col])}</td>
+                <td key={col}>
+                  {row[col] === null ? (
+                    <em style={{ color: "#475569" }}>NULL</em>
+                  ) : (
+                    String(row[col])
+                  )}
+                </td>
               ))}
             </tr>
           ))}

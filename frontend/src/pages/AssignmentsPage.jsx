@@ -1,25 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import AssignmentCard from '../components/AssignmentCard';
-import { getAssignments } from '../services/api';
-import '../styles/pages/_assignments.scss';
+import React, { useState, useEffect } from "react";
+import AssignmentCard from "../components/AssignmentCard";
+import { getAssignments } from "../services/api";
+import "../styles/pages/_assignments.scss";
 
-const FILTERS = ['all', 'beginner', 'intermediate', 'advanced'];
+const FILTERS = ["all", "beginner", "intermediate", "advanced"];
 
 export default function AssignmentsPage() {
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     getAssignments()
       .then((res) => setAssignments(res.data.assignments))
-      .catch((err) => setError(err.response?.data?.error || 'Failed to load assignments.'))
+      .catch((err) =>
+        setError(err.response?.data?.error || "Failed to load assignments."),
+      )
       .finally(() => setLoading(false));
   }, []);
 
   const filtered =
-    filter === 'all' ? assignments : assignments.filter((a) => a.difficulty === filter);
+    filter === "all"
+      ? assignments
+      : assignments.filter((a) => a.difficulty === filter);
 
   return (
     <main className="assignments-page">
@@ -29,7 +33,8 @@ export default function AssignmentsPage() {
             Practice <span>SQL</span> by Doing
           </h1>
           <p className="assignments-page__subtitle">
-            Choose an assignment, write your query in the editor, and get intelligent hints when you're stuck.
+            Choose an assignment, write your query in the editor, and get
+            intelligent hints when you're stuck.
           </p>
         </div>
 
@@ -37,7 +42,7 @@ export default function AssignmentsPage() {
           {FILTERS.map((f) => (
             <button
               key={f}
-              className={`assignments-page__filter-btn${filter === f ? ' assignments-page__filter-btn--active' : ''}`}
+              className={`assignments-page__filter-btn${filter === f ? " assignments-page__filter-btn--active" : ""}`}
               onClick={() => setFilter(f)}
             >
               {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -54,8 +59,14 @@ export default function AssignmentsPage() {
 
         {error && (
           <div className="assignments-page__empty">
-            <p style={{ color: '#ef4444' }}>❌ {error}</p>
-            <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#64748b' }}>
+            <p style={{ color: "#ef4444" }}>❌ {error}</p>
+            <p
+              style={{
+                marginTop: "0.5rem",
+                fontSize: "0.875rem",
+                color: "#64748b",
+              }}
+            >
               Make sure the backend server is running.
             </p>
           </div>
