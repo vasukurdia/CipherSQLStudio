@@ -157,7 +157,7 @@ Edit `.env`:
 ```env
 PORT=5000
 NODE_ENV=development
-MONGODB_URI=mongodb+srv://user:pass@cluster0.xxxxx.mongodb.net/ciphersqlstudio?retryWrites=true&w=majority
+MONGODB_URI=your URI
 PG_HOST=localhost
 PG_PORT=5432
 PG_DATABASE=ciphersqlstudio_sandbox
